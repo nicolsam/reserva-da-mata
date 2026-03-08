@@ -8,9 +8,9 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-    await prisma.cabins.deleteMany(); // Opcional: limpa a tabela antes de popular
+    await prisma.cabin.deleteMany(); // Opcional: limpa a tabela antes de popular
 
-    await prisma.cabins.createMany({
+    await prisma.cabin.createMany({
         data: [
         {
             name: 'Cozy Cabin',
