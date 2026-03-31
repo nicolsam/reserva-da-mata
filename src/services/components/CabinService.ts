@@ -1,5 +1,6 @@
-import { Cabin } from "@/app/generated/prisma/client";
 import Prisma from "@/src/lib/prisma";
+import { Cabin } from "@prisma/client";
+
 import { cache } from 'react';
 
 export async function getAllCabins(): Promise<Cabin[]> {
