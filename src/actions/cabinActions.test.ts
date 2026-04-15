@@ -57,4 +57,25 @@ describe('cabinActions', () => {
     expect(result).toEqual({ success: false, error: "Failed to create cabin" });
     expect(Prisma.cabin.create).toHaveBeenCalledTimes(1);
   });
+
+  it('should return validation error when name is missing', async () => {
+    const formData = new FormData();
+    formData.append('max_capacity', '4');
+    formData.append('regular_price', '200');
+
+    const result = await createCabinAction(formData);
+    expect(result.success).toBe(false);
+    expect(result.error).toBeTruthy();
+  });
+
+  it('should return validation error when price is negative', async () => {
+    const formData = new FormData();
+    formData.append('name', 'Test Cabin');
+    formData.append('max_capacity', '4');
+    formData.append('regular_price', '-10');
+
+    const result = await createCabinAction(formData);
+    expect(result.success).toBe(false);
+    expect(result.error).toBeTruthy();
+  });
 });
