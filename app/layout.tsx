@@ -3,6 +3,7 @@ import Navigation from "@/app/_components/Navigation";
 import "@/app/_styles/globals.css";
 
 import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -28,6 +29,7 @@ export default function RootLayout({
 
         <main>{children}</main>
         <footer>Copyright Reserva da Mata</footer>
+        <Toaster />
       </body>
     </html>
   );
