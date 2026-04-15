@@ -1,16 +1,7 @@
 import Prisma from "@/src/lib/prisma";
 import { Cabin } from "@prisma/client";
 import { cache } from 'react';
-import { z } from 'zod';
-
-export const cabinSchema = z.object({
-    name: z.string().min(1, "Name is required"),
-    description: z.string().optional(),
-    imageUrl: z.string().optional(),
-    max_capacity: z.coerce.number().int().positive("Capacity must be greater than 0"),
-    regular_price: z.coerce.number().positive("Price must be greater than 0"),
-    discount: z.coerce.number().min(0, "Discount cannot be negative").default(0),
-});
+import { cabinSchema } from '@/src/lib/cabinSchema';
 
 export async function getAllCabins(): Promise<Cabin[]> {
     try {
@@ -33,3 +24,5 @@ export const getCabinById = cache(async (id: string): Promise<Cabin | null> => {
         return null; // Return null to trigger the not-found page
     }
 });
+
+export { cabinSchema };
