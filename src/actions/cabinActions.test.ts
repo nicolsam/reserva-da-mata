@@ -45,7 +45,7 @@ describe('cabinActions', () => {
     expect(revalidatePath).toHaveBeenCalledWith('/cabins');
   });
 
-  it('should throw an error when creation fails', async () => {
+  it('should return error when creation fails', async () => {
     const formData = new FormData();
     formData.append('name', 'Luxury Cabin');
     formData.append('max_capacity', '4');
@@ -53,7 +53,8 @@ describe('cabinActions', () => {
 
     (Prisma.cabin.create as any).mockRejectedValue(new Error('Database error'));
 
-    await expect(createCabinAction(formData)).rejects.toThrow('Failed to create cabin');
+    const result = await createCabinAction(formData);
+    expect(result).toEqual({ success: false, error: "Failed to create cabin" });
     expect(Prisma.cabin.create).toHaveBeenCalledTimes(1);
   });
 });

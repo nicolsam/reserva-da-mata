@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { toast } from 'sonner';
 import Prisma from "@/src/lib/prisma";
 import { cabinSchema } from '@/src/services/components/CabinService';
 
@@ -17,8 +18,9 @@ export async function createCabinAction(formData: FormData) {
             },
         });
         revalidatePath('/cabins');
+        return { success: true };
     } catch (error) {
         console.error("Error creating cabin:", error);
-        throw new Error("Failed to create cabin");
+        return { success: false, error: "Failed to create cabin" };
     }
 }
